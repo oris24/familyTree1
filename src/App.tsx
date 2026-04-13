@@ -10,7 +10,7 @@ const familyData = {
   siblings: [
     {
       type: 'husband_sister',
-      wife: { id: 'mania_d', name: 'מניה דפנר', gender: 'female', birthYear: '1877', age: '65', deathPlace: 'אושוויץ', livingPlace: 'Bendzin, Bedzin, Kielce, פולין', kids: '5', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//21020930_392_0918/175.jpg' },
+      wife: { id: 'mania_d', name: 'מניה דפנר (פרזרוביץ\')', gender: 'female', birthYear: '1877', age: '65', deathPlace: 'אושוויץ', livingPlace: 'Bendzin, Bedzin, Kielce, פולין', kids: '5', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//21020930_392_0918/175.jpg' },
       husband: { id: 'reuven_d', name: 'ראובן דפנר', gender: 'male', birthYear: '1875', age: '67', deathPlace: 'אושוויץ', livingPlace: 'Bendzin, Bedzin, Kielce, פולין', kids: '5', profession: 'סוחר', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//21020930_392_0918/190.jpg' },
       children: [
         { id: 'chava_d', name: 'חוה דפנר', gender: 'female', birthYear: '1916', age: '26', deathPlace: 'אושוויץ', livingPlace: 'Bendzin, Bedzin, Kielce, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//NEW_APP/200511061226_3_0918/3.jpg' }
@@ -163,7 +163,7 @@ export default function App() {
           </div>
 
           {/* Cousins */}
-          <div className="mt-16 border-t border-stone-300 pt-12 max-w-3xl mx-auto">
+          <div className="mt-8 border-t border-stone-300 pt-8 max-w-3xl mx-auto">
             <h2 className="text-2xl font-serif text-stone-800 mb-8 text-center">בנות דודות</h2>
             <div className="flex justify-center gap-8">
               {familyData.cousins.map(c => (
