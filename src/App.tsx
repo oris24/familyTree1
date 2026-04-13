@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Xarrow, { Xwrapper } from 'react-xarrows';
-import { User } from 'lucide-react';
+import { User, FileText } from 'lucide-react';
 
 const familyData = {
   core: {
-    husband: { id: 'zvi_dov', name: 'צבי דב פרזרוביץ', gender: 'male' },
-    wife: { id: 'feige', name: 'פייגה פרזרוביץ', gender: 'female', birthYear: '1875', age: '67', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/190.jpg' }
+    husband: { id: 'zvi_dov', name: 'צבי דב פרזרוביץ\'', gender: 'male', birthYear: '1875', age: '55', deathPrefix: 'נפטר בגיל' },
+    wife: { id: 'feige', name: 'פייגה פרזרוביץ\'', gender: 'female', birthYear: '1875', age: '67', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/190.jpg' }
   },
   siblings: [
     {
@@ -25,17 +25,17 @@ const familyData = {
   ],
   children: [
     {
-      id: 'israel', name: 'ישראל פרזרוביץ', gender: 'male', birthYear: '1913', age: '29', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', profession: 'סוחר', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/187.jpg'
+      id: 'israel', name: 'ישראל פרזרוביץ\'', gender: 'male', birthYear: '1913', age: '29', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', profession: 'סוחר', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/187.jpg'
     },
     {
-      husband: { id: 'yaakov', name: 'יעקב פרזרוביץ', gender: 'male', birthYear: '1909', age: '33', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', profession: 'סוחר', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/183.jpg' },
-      wife: { id: 'mania_p', name: 'מניה פרזרוביץ (בילטנר)', gender: 'female', birthYear: '1909', age: '33', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/188.jpg' },
+      husband: { id: 'yaakov', name: 'יעקב פרזרוביץ\'', gender: 'male', birthYear: '1909', age: '33', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', profession: 'סוחר', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/183.jpg' },
+      wife: { id: 'mania_p', name: 'מניה פרזרוביץ\' (בילטנר)', gender: 'female', birthYear: '1909', age: '33', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/188.jpg' },
       children: [
-        { id: 'binyamin_p', name: 'בנימין (בניק) פרזרוביץ', gender: 'male', birthYear: '1939', age: '3', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/183.jpg' }
+        { id: 'binyamin_p', name: 'בנימין (בניק) פרזרוביץ\'', gender: 'male', birthYear: '1939', age: '3', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/183.jpg' }
       ]
     },
     {
-      wife: { id: 'sara_pass', name: 'שרה פסרמן (פרזרוביץ)', gender: 'female', birthYear: '1907', age: '35', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031043_209_2407/206.jpg' },
+      wife: { id: 'sara_pass', name: 'שרה פסרמן (פרזרוביץ\')', gender: 'female', birthYear: '1907', age: '35', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031043_209_2407/206.jpg' },
       husband: { id: 'natan_pass', name: 'נתן פסרמן', gender: 'male', birthYear: '1907', age: '35', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', profession: 'סוחר', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031043_209_2407/190.jpg' },
       children: [
         { id: 'binyamin_pass', name: 'בנימין (בניק) פסרמן', gender: 'male', birthYear: '1932', age: '10', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031043_209_2407/206.jpg' },
@@ -43,10 +43,10 @@ const familyData = {
       ]
     },
     {
-      wife: { id: 'sonia', name: 'סוניה פרזרוביץ', gender: 'female', birthYear: '1896', age: '56', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/189.jpg' },
+      wife: { id: 'sonia', name: 'סוניה פרזרוביץ\'', gender: 'female', birthYear: '1896', age: '56', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/189.jpg' },
       husband: { id: 'yechiel', name: 'יחיאל', gender: 'male', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/189.jpg' },
       children: [
-        { id: 'sara_p', name: 'שרה פרזרוביץ', gender: 'female', birthYear: '1922', age: '20', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/193.jpg' }
+        { id: 'sara_p', name: 'שרה פרזרוביץ\'', gender: 'female', birthYear: '1922', age: '20', deathPlace: 'אושוויץ', livingPlace: 'Sosnowiec, פולין', pageUrl: 'https://namesfs.yadvashem.org//arch1_yadvashem//02031918_376_2519/193.jpg' }
       ]
     }
   ],
@@ -58,16 +58,17 @@ const familyData = {
 
 const Person = ({ person, setPopupImage }: { person: any, setPopupImage: (url: string) => void }) => {
   return (
-    <div id={person.id} className="w-48 bg-white border border-stone-200 rounded-lg shadow-sm p-4 flex flex-col items-center text-center relative z-10 hover:shadow-md transition-shadow">
-      <div className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center mb-3">
-        <User className="w-6 h-6 text-stone-500" />
+    <div id={person.id} className="w-44 bg-white border border-stone-200 rounded-lg shadow-sm p-3 flex flex-col items-center text-center relative z-10 hover:shadow-md transition-shadow">
+      <div id={`${person.id}_anchor`} className="absolute top-24 left-1/2 w-0 h-0 -translate-x-1/2" />
+      <div className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center mb-3 overflow-hidden border border-stone-200">
+        <img src="https://www.shalhevetlight.com/cdn/shop/files/isolated-candle-white_fjxfr0.jpg?v=1687878507&width=300" alt="icon" className="w-8 h-8 object-contain mix-blend-multiply" />
       </div>
       <h3 className="font-bold text-stone-800 text-sm mb-2">{person.name}</h3>
       
       <div className="text-xs text-stone-600 space-y-1 w-full">
         {person.birthYear && <p>שנת לידה: {person.birthYear}</p>}
-        {person.age && <p>גיל נרצח/ת: {person.age}</p>}
-        {person.deathPlace && <p>נספה/תה ב: {person.deathPlace}</p>}
+        {person.age && <p>{person.deathPrefix || (person.gender === 'female' ? 'נרצחה בגיל' : 'נרצח בגיל')}: {person.age}</p>}
+        {person.deathPlace && <p>{person.gender === 'female' ? 'נספתה ב' : 'נספה ב'}: {person.deathPlace}</p>}
         {person.livingPlace && <p>מגורים: {person.livingPlace}</p>}
         {person.kids && <p>ילדים: {person.kids}</p>}
         {person.profession && <p>מקצוע: {person.profession}</p>}
@@ -76,7 +77,7 @@ const Person = ({ person, setPopupImage }: { person: any, setPopupImage: (url: s
       {person.pageUrl && (
         <button 
           onClick={() => setPopupImage(person.pageUrl)}
-          className="mt-3 text-xs text-blue-600 hover:text-blue-800 underline decoration-blue-300 underline-offset-2"
+          className="mt-3 px-4 py-1.5 bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs font-medium rounded-md border border-stone-200 transition-colors"
         >
           דף עד
         </button>
@@ -85,17 +86,19 @@ const Person = ({ person, setPopupImage }: { person: any, setPopupImage: (url: s
   );
 };
 
-const Couple = ({ husband, wife, id, setPopupImage }: { husband: any, wife: any, id: string, setPopupImage: (url: string) => void }) => {
+const Couple = ({ husband, wife, id, setPopupImage, hasChildren = true }: { husband: any, wife: any, id: string, setPopupImage: (url: string) => void, hasChildren?: boolean }) => {
   return (
-    <div className="relative flex items-center gap-8">
+    <div className="relative flex items-start gap-4">
       <Person person={husband} setPopupImage={setPopupImage} />
       <Person person={wife} setPopupImage={setPopupImage} />
-      {/* Invisible top point for incoming arrows */}
-      <div id={`${id}_top`} className="absolute left-1/2 top-0 w-0 h-0 -translate-x-1/2" />
-      {/* Invisible bottom point for outgoing arrows */}
-      <div id={id} className="absolute left-1/2 bottom-0 w-0 h-0 -translate-x-1/2" />
+      {/* Invisible center point for outgoing arrows (starts from the marriage line) */}
+      <div id={id} className="absolute left-1/2 top-24 w-0 h-0 -translate-x-1/2" />
+      {/* Invisible bottom point for branching */}
+      {hasChildren && <div id={`${id}_bottom`} className="absolute left-1/2 -bottom-8 w-0 h-0 -translate-x-1/2" />}
       {/* Marriage line */}
-      <Xarrow start={husband.id} end={wife.id} showHead={false} color="#a8a29e" strokeWidth={2} zIndex={0} />
+      <Xarrow start={`${husband.id}_anchor`} end={`${wife.id}_anchor`} showHead={false} color="#a8a29e" strokeWidth={2} zIndex={0} />
+      {/* Vertical drop line */}
+      {hasChildren && <Xarrow start={id} end={`${id}_bottom`} showHead={false} color="#a8a29e" strokeWidth={2} zIndex={0} />}
     </div>
   );
 };
@@ -106,52 +109,67 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#f5f5f4] font-sans text-stone-800 p-8 overflow-x-auto" dir="rtl">
       <div className="min-w-max mx-auto px-8 pb-16 relative">
-        <h1 className="text-3xl font-serif text-center mb-24 text-stone-800">עץ משפחה - משפחת פרזרוביץ</h1>
+        <h1 className="text-3xl font-serif text-center mb-24 text-stone-800">דפי עדות שמילאה סבתא מירה זיגלבוים (פרזרוביץ')</h1>
         
         <Xwrapper>
-          <div className="flex flex-col items-center gap-24">
+          <div className="flex flex-col items-center gap-8">
             
             {/* Top Level */}
-            <div className="flex justify-center items-start gap-32 w-full">
-              <div className="flex flex-col items-center gap-12">
+            <div className="flex justify-center items-start gap-16 w-full">
+              
+              {/* Dafner Family */}
+              <div className="flex flex-col items-center gap-12 ml-4">
                 <Couple husband={familyData.siblings[0].husband} wife={familyData.siblings[0].wife} id="dafner_couple" setPopupImage={setPopupImage} />
-                <div className="flex gap-8">
+                <div className="flex gap-4">
                   <Person person={familyData.siblings[0].children[0]} setPopupImage={setPopupImage} />
                 </div>
               </div>
 
-              <div className="flex flex-col items-center gap-12">
+              {/* Core Family */}
+              <div className="flex flex-col items-center gap-16">
                 <Couple husband={familyData.core.husband} wife={familyData.core.wife} id="core_couple" setPopupImage={setPopupImage} />
-              </div>
+                
+                {/* Core Children */}
+                <div className="flex justify-center items-start gap-8 w-full">
+                  <Person person={familyData.children[0]} setPopupImage={setPopupImage} />
+                  
+                  <div className="flex flex-col items-center gap-12">
+                    <Couple husband={familyData.children[1].husband} wife={familyData.children[1].wife} id="yaakov_couple" setPopupImage={setPopupImage} />
+                    <Person person={familyData.children[1].children[0]} setPopupImage={setPopupImage} />
+                  </div>
 
-              <div className="flex flex-col items-center gap-12">
-                <Couple husband={familyData.siblings[1].husband} wife={familyData.siblings[1].wife} id="weizman_couple" setPopupImage={setPopupImage} />
-              </div>
-            </div>
+                  <div className="flex flex-col items-center gap-12">
+                    <Couple wife={familyData.children[2].wife} husband={familyData.children[2].husband} id="passerman_couple" setPopupImage={setPopupImage} />
+                    <div className="flex gap-4">
+                      <Person person={familyData.children[2].children[0]} setPopupImage={setPopupImage} />
+                      <Person person={familyData.children[2].children[1]} setPopupImage={setPopupImage} />
+                    </div>
+                  </div>
 
-            {/* Second Level */}
-            <div className="flex justify-center items-start gap-16 w-full">
-              <Person person={familyData.children[0]} setPopupImage={setPopupImage} />
-              
-              <div className="flex flex-col items-center gap-12">
-                <Couple husband={familyData.children[1].husband} wife={familyData.children[1].wife} id="yaakov_couple" setPopupImage={setPopupImage} />
-                <Person person={familyData.children[1].children[0]} setPopupImage={setPopupImage} />
-              </div>
-
-              <div className="flex flex-col items-center gap-12">
-                <Couple wife={familyData.children[2].wife} husband={familyData.children[2].husband} id="passerman_couple" setPopupImage={setPopupImage} />
-                <div className="flex gap-8">
-                  <Person person={familyData.children[2].children[0]} setPopupImage={setPopupImage} />
-                  <Person person={familyData.children[2].children[1]} setPopupImage={setPopupImage} />
+                  <div className="flex flex-col items-center gap-12">
+                    <Couple wife={familyData.children[3].wife} husband={familyData.children[3].husband} id="sonia_couple" setPopupImage={setPopupImage} />
+                    <Person person={familyData.children[3].children[0]} setPopupImage={setPopupImage} />
+                  </div>
                 </div>
               </div>
 
-              <div className="flex flex-col items-center gap-12">
-                <Couple wife={familyData.children[3].wife} husband={familyData.children[3].husband} id="sonia_couple" setPopupImage={setPopupImage} />
-                <Person person={familyData.children[3].children[0]} setPopupImage={setPopupImage} />
+              {/* Weizman Family */}
+              <div className="flex flex-col items-center gap-8 mr-4">
+                <Couple husband={familyData.siblings[1].husband} wife={familyData.siblings[1].wife} id="weizman_couple" setPopupImage={setPopupImage} hasChildren={false} />
               </div>
+
             </div>
 
+          </div>
+
+          {/* Cousins */}
+          <div className="mt-16 border-t border-stone-300 pt-12 max-w-3xl mx-auto">
+            <h2 className="text-2xl font-serif text-stone-800 mb-8 text-center">בנות דודות</h2>
+            <div className="flex justify-center gap-8">
+              {familyData.cousins.map(c => (
+                <Person key={c.id} person={c} setPopupImage={setPopupImage} />
+              ))}
+            </div>
           </div>
 
           {/* Arrows */}
@@ -160,28 +178,19 @@ export default function App() {
           <Xarrow start="reuven_w" end="feige" startAnchor="top" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
 
           {/* Core Children */}
-          <Xarrow start="core_couple" end="israel" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="core_couple" end="yaakov_couple_top" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="core_couple" end="passerman_couple_top" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="core_couple" end="sonia_couple_top" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+          <Xarrow start="core_couple_bottom" end="israel" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+          <Xarrow start="core_couple_bottom" end="yaakov" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+          <Xarrow start="core_couple_bottom" end="sara_pass" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+          <Xarrow start="core_couple_bottom" end="sonia" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
 
           {/* Grandchildren */}
-          <Xarrow start="dafner_couple" end="chava_d" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="yaakov_couple" end="binyamin_p" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="passerman_couple" end="binyamin_pass" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="passerman_couple" end="sima_pass" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+          <Xarrow start="dafner_couple_bottom" end="chava_d" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+          <Xarrow start="yaakov_couple_bottom" end="binyamin_p" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+          <Xarrow start="passerman_couple_bottom" end="binyamin_pass" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+          <Xarrow start="passerman_couple_bottom" end="sima_pass" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+          <Xarrow start="sonia_couple_bottom" end="sara_p" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
 
         </Xwrapper>
-
-        {/* Cousins */}
-        <div className="mt-32 border-t border-stone-300 pt-12 max-w-3xl mx-auto">
-          <h2 className="text-2xl font-serif text-stone-800 mb-8 text-center">בנות דודות</h2>
-          <div className="flex justify-center gap-8">
-            {familyData.cousins.map(c => (
-              <Person key={c.id} person={c} setPopupImage={setPopupImage} />
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Popup */}
