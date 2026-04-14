@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Xarrow, { Xwrapper } from 'react-xarrows';
-import { User, FileText } from 'lucide-react';
+import { User, FileText, ZoomIn, ZoomOut } from 'lucide-react';
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 const familyData = {
   core: {
@@ -56,12 +57,12 @@ const familyData = {
   ]
 };
 
-const Person = ({ person, setPopupImage }: { person: any, setPopupImage: (url: string) => void }) => {
+const Person: React.FC<{ person: any, setPopupImage: (url: string | null) => void }> = ({ person, setPopupImage }) => {
   return (
     <div id={person.id} className="w-44 bg-white border border-stone-200 rounded-lg shadow-sm p-3 flex flex-col items-center text-center relative z-10 hover:shadow-md transition-shadow">
       <div id={`${person.id}_anchor`} className="absolute top-24 left-1/2 w-0 h-0 -translate-x-1/2" />
       <div className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center mb-3 overflow-hidden border border-stone-200">
-        <img src="https://www.shalhevetlight.com/cdn/shop/files/isolated-candle-white_fjxfr0.jpg?v=1687878507&width=300" alt="icon" className="w-8 h-8 object-contain mix-blend-multiply" />
+        <img src="https://www.shalhevetlight.com/cdn/shop/files/isolated-candle-white_fjxfr0.jpg?v=1687878507&width=300" alt="icon" className="w-8 h-8 object-contain mix-blend-multiply" referrerPolicy="no-referrer" />
       </div>
       <h3 className="font-bold text-stone-800 text-sm mb-2">{person.name}</h3>
       
@@ -86,7 +87,7 @@ const Person = ({ person, setPopupImage }: { person: any, setPopupImage: (url: s
   );
 };
 
-const Couple = ({ husband, wife, id, setPopupImage, hasChildren = true }: { husband: any, wife: any, id: string, setPopupImage: (url: string) => void, hasChildren?: boolean }) => {
+const Couple: React.FC<{ husband: any, wife: any, id: string, setPopupImage: (url: string | null) => void, hasChildren?: boolean }> = ({ husband, wife, id, setPopupImage, hasChildren = true }) => {
   return (
     <div className="relative flex items-start gap-4">
       <Person person={husband} setPopupImage={setPopupImage} />
@@ -107,91 +108,117 @@ export default function App() {
   const [popupImage, setPopupImage] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen bg-[#f5f5f4] font-sans text-stone-800 p-8 overflow-x-auto" dir="rtl">
-      <div className="min-w-max mx-auto px-8 pb-16 relative">
-        <h1 className="text-3xl font-serif text-center mb-24 text-stone-800">דפי עדות שמילאה סבתא מירה זיגלבוים (פרזרוביץ')</h1>
-        
-        <Xwrapper>
-          <div className="flex flex-col items-center gap-8">
-            
-            {/* Top Level */}
-            <div className="flex justify-center items-start gap-16 w-full">
+    <div className="min-h-screen bg-[#f5f5f4] font-sans text-stone-800 overflow-hidden" dir="rtl">
+      <TransformWrapper
+        initialScale={1}
+        minScale={0.4}
+        maxScale={3}
+        centerOnInit={true}
+        limitToBounds={false}
+        panning={{ velocityDisabled: true }}
+      >
+        {({ zoomIn, zoomOut, resetTransform }) => (
+          <>
+            <div className="fixed bottom-8 left-8 z-50 flex flex-col gap-2 bg-white/90 backdrop-blur-sm p-2 rounded-xl shadow-lg border border-stone-200">
+              <button onClick={() => zoomIn()} className="w-10 h-10 flex items-center justify-center bg-stone-50 hover:bg-stone-100 rounded-lg text-stone-700 transition-colors shadow-sm border border-stone-100" title="התקרב">
+                <ZoomIn className="w-5 h-5" />
+              </button>
+              <button onClick={() => zoomOut()} className="w-10 h-10 flex items-center justify-center bg-stone-50 hover:bg-stone-100 rounded-lg text-stone-700 transition-colors shadow-sm border border-stone-100" title="התרחק">
+                <ZoomOut className="w-5 h-5" />
+              </button>
+            </div>
+            <TransformComponent 
+              wrapperStyle={{ width: "100%", height: "100vh" }} 
+              contentStyle={{ width: "100%", height: "100%", cursor: "grab" }}
+            >
+              <div className="min-w-max p-24 relative">
+            <Xwrapper>
+              <h1 className="text-3xl font-serif text-center mb-16 text-stone-800">דפי עדות שמילאה סבתא מירה זיגלבוים (פרזרוביץ')</h1>
               
-              {/* Dafner Family */}
-              <div className="flex flex-col items-center gap-12 ml-4">
-                <Couple husband={familyData.siblings[0].husband} wife={familyData.siblings[0].wife} id="dafner_couple" setPopupImage={setPopupImage} />
-                <div className="flex gap-4">
-                  <Person person={familyData.siblings[0].children[0]} setPopupImage={setPopupImage} />
-                </div>
-              </div>
-
-              {/* Core Family */}
-              <div className="flex flex-col items-center gap-16">
-                <Couple husband={familyData.core.husband} wife={familyData.core.wife} id="core_couple" setPopupImage={setPopupImage} />
+              <div className="flex flex-col items-center gap-8">
                 
-                {/* Core Children */}
-                <div className="flex justify-center items-start gap-8 w-full">
-                  <Person person={familyData.children[0]} setPopupImage={setPopupImage} />
+                {/* Top Level */}
+                <div className="flex justify-center items-start gap-16 w-full">
                   
-                  <div className="flex flex-col items-center gap-12">
-                    <Couple husband={familyData.children[1].husband} wife={familyData.children[1].wife} id="yaakov_couple" setPopupImage={setPopupImage} />
-                    <Person person={familyData.children[1].children[0]} setPopupImage={setPopupImage} />
-                  </div>
-
-                  <div className="flex flex-col items-center gap-12">
-                    <Couple wife={familyData.children[2].wife} husband={familyData.children[2].husband} id="passerman_couple" setPopupImage={setPopupImage} />
+                  {/* Dafner Family */}
+                  <div className="flex flex-col items-center gap-12 ml-4">
+                    <Couple husband={familyData.siblings[0].husband} wife={familyData.siblings[0].wife} id="dafner_couple" setPopupImage={setPopupImage} />
                     <div className="flex gap-4">
-                      <Person person={familyData.children[2].children[0]} setPopupImage={setPopupImage} />
-                      <Person person={familyData.children[2].children[1]} setPopupImage={setPopupImage} />
+                      <Person person={familyData.siblings[0].children[0]} setPopupImage={setPopupImage} />
                     </div>
                   </div>
 
-                  <div className="flex flex-col items-center gap-12">
-                    <Couple wife={familyData.children[3].wife} husband={familyData.children[3].husband} id="sonia_couple" setPopupImage={setPopupImage} />
-                    <Person person={familyData.children[3].children[0]} setPopupImage={setPopupImage} />
+                  {/* Core Family */}
+                  <div className="flex flex-col items-center gap-16">
+                    <Couple husband={familyData.core.husband} wife={familyData.core.wife} id="core_couple" setPopupImage={setPopupImage} />
+                    
+                    {/* Core Children */}
+                    <div className="flex justify-center items-start gap-8 w-full">
+                      <Person person={familyData.children[0]} setPopupImage={setPopupImage} />
+                      
+                      <div className="flex flex-col items-center gap-12">
+                        <Couple husband={familyData.children[1].husband} wife={familyData.children[1].wife} id="yaakov_couple" setPopupImage={setPopupImage} />
+                        <Person person={familyData.children[1].children[0]} setPopupImage={setPopupImage} />
+                      </div>
+
+                      <div className="flex flex-col items-center gap-12">
+                        <Couple wife={familyData.children[2].wife} husband={familyData.children[2].husband} id="passerman_couple" setPopupImage={setPopupImage} />
+                        <div className="flex gap-4">
+                          <Person person={familyData.children[2].children[0]} setPopupImage={setPopupImage} />
+                          <Person person={familyData.children[2].children[1]} setPopupImage={setPopupImage} />
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col items-center gap-12">
+                        <Couple wife={familyData.children[3].wife} husband={familyData.children[3].husband} id="sonia_couple" setPopupImage={setPopupImage} />
+                        <Person person={familyData.children[3].children[0]} setPopupImage={setPopupImage} />
+                      </div>
+                    </div>
                   </div>
+
+                  {/* Weizman Family */}
+                  <div className="flex flex-col items-center gap-8 mr-4">
+                    <Couple husband={familyData.siblings[1].husband} wife={familyData.siblings[1].wife} id="weizman_couple" setPopupImage={setPopupImage} hasChildren={false} />
+                  </div>
+
+                </div>
+
+              </div>
+
+              {/* Cousins */}
+              <div className="mt-8 border-t border-stone-300 pt-8 max-w-3xl mx-auto">
+                <h2 className="text-2xl font-serif text-stone-800 mb-8 text-center">בנות דודות</h2>
+                <div className="flex justify-center gap-8">
+                  {familyData.cousins.map(c => (
+                    <Person key={c.id} person={c} setPopupImage={setPopupImage} />
+                  ))}
                 </div>
               </div>
 
-              {/* Weizman Family */}
-              <div className="flex flex-col items-center gap-8 mr-4">
-                <Couple husband={familyData.siblings[1].husband} wife={familyData.siblings[1].wife} id="weizman_couple" setPopupImage={setPopupImage} hasChildren={false} />
-              </div>
+              {/* Arrows */}
+              {/* Siblings */}
+              <Xarrow start="mania_d" end="zvi_dov" startAnchor="top" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+              <Xarrow start="reuven_w" end="feige" startAnchor="top" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
 
-            </div>
+              {/* Core Children */}
+              <Xarrow start="core_couple_bottom" end="israel" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+              <Xarrow start="core_couple_bottom" end="yaakov" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+              <Xarrow start="core_couple_bottom" end="sara_pass" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+              <Xarrow start="core_couple_bottom" end="sonia" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
 
+              {/* Grandchildren */}
+              <Xarrow start="dafner_couple_bottom" end="chava_d" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+              <Xarrow start="yaakov_couple_bottom" end="binyamin_p" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+              <Xarrow start="passerman_couple_bottom" end="binyamin_pass" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+              <Xarrow start="passerman_couple_bottom" end="sima_pass" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+              <Xarrow start="sonia_couple_bottom" end="sara_p" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
+
+            </Xwrapper>
           </div>
-
-          {/* Cousins */}
-          <div className="mt-8 border-t border-stone-300 pt-8 max-w-3xl mx-auto">
-            <h2 className="text-2xl font-serif text-stone-800 mb-8 text-center">בנות דודות</h2>
-            <div className="flex justify-center gap-8">
-              {familyData.cousins.map(c => (
-                <Person key={c.id} person={c} setPopupImage={setPopupImage} />
-              ))}
-            </div>
-          </div>
-
-          {/* Arrows */}
-          {/* Siblings */}
-          <Xarrow start="mania_d" end="zvi_dov" startAnchor="top" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="reuven_w" end="feige" startAnchor="top" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-
-          {/* Core Children */}
-          <Xarrow start="core_couple_bottom" end="israel" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="core_couple_bottom" end="yaakov" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="core_couple_bottom" end="sara_pass" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="core_couple_bottom" end="sonia" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-
-          {/* Grandchildren */}
-          <Xarrow start="dafner_couple_bottom" end="chava_d" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="yaakov_couple_bottom" end="binyamin_p" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="passerman_couple_bottom" end="binyamin_pass" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="passerman_couple_bottom" end="sima_pass" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-          <Xarrow start="sonia_couple_bottom" end="sara_p" startAnchor="bottom" endAnchor="top" path="grid" color="#a8a29e" strokeWidth={2} showHead={false} zIndex={0} />
-
-        </Xwrapper>
-      </div>
+        </TransformComponent>
+        </>
+        )}
+      </TransformWrapper>
 
       {/* Popup */}
       {popupImage && (
